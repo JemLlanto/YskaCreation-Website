@@ -1,5 +1,5 @@
 <?php
-include ('connection.php');
+include('connection.php');
 session_start();
 
 $username = $_POST['username'];
@@ -50,7 +50,7 @@ if ($result->num_rows > 0 && $result_chat->num_rows > 0 && $result_chatroom->num
 
             echo "<script>
             alert('Welcome');
-            window.location='user_landing_page.php';
+            window.location='Components/User/user_landing_page.php';
             </script>";
         }
     } else {

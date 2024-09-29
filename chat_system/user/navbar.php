@@ -3,7 +3,7 @@
     <div class="container-fluid" style=" align-items: center; justify-content: space-around !important;">
 
 
-        <a id="img" class="" href="../../user_landing_page.php">
+        <a id="img" class="" href="../../Components/User/user_landing_page.php">
             <img src="../../img/LOGOO.png" alt="YsakaLogo" class="d-inline-block" style="width: 110px">
         </a>
 

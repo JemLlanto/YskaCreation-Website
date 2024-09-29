@@ -1,5 +1,5 @@
-<?php include ('session.php'); ?>
-<?php include ('header.php'); ?>
+<?php include('session.php'); ?>
+<?php include('header.php'); ?>
 <?php
 $id = $_REQUEST['id'];
 
@@ -10,15 +10,15 @@ $cmem = mysqli_query($conn, "select * from chat_member where chatroomid='$id'");
 ?>
 
 <body>
-    <?php include ('navbar.php'); ?>
+    <?php include('navbar.php'); ?>
     <div class="container-fluid">
         <div class="row">
-            <?php include ('room.php'); ?>
+            <?php include('room.php'); ?>
         </div>
     </div>
-    <?php include ('room_modal.php'); ?>
-    <?php include ('out_modal.php'); ?>
-    <?php include ('modal.php'); ?>
+    <?php include('room_modal.php'); ?>
+    <?php include('out_modal.php'); ?>
+    <?php include('modal.php'); ?>
 
     <script src="../js/jquery.dataTables.min.js"></script>
     <script src="../js/dataTables.bootstrap.min.js"></script>
