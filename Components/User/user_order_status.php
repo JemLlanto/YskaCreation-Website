@@ -159,47 +159,6 @@ include("Layout/UserHeader.php");
         if (isset($_POST['selected_items']) && !empty($_POST['selected_items'])) {
             $selectedItems = json_decode($_POST['selected_items'], true);
             $totalPrice = 0;
-
-            foreach ($selectedItems as $order_id) {
-                $sql = "SELECT o.*, 
-                       GROUP_CONCAT(vc.option SEPARATOR ', ') AS variant_options
-                FROM order_table o
-                LEFT JOIN variant_content vc ON FIND_IN_SET(vc.variant_content_id, o.variant_content_ids)
-                WHERE o.user_id = ? AND o.order_id = ?
-                GROUP BY o.order_id";
-
-                if ($stmt = $conn->prepare($sql)) {
-                    $stmt->bind_param("ii", $user_id, $order_id);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-                    if ($item = $result->fetch_assoc()) {
-                        $totalPrice += $item['price'] * $item['quantity'];
-                        ?>
-                        <div id="product_details" class="w-100 rounded border d-flex justify-content-between align-items-end mb-2 p-2">
-                            <div class="product_image d-flex justify-content-center align-items-center">
-                                <img src="../../product-images/<?php echo $item['image_file']; ?>" alt="" class="rounded me-2">
-                                <div class="m-0">
-                                    <h5><?php echo $item['product_name']; ?></h5>
-                                    <p>Variation: <?php echo $item['variant_options']; ?> x
-                                        <?php echo number_format($item['price'], 2); ?>
-                                    </p>
-                                </div>
-                            </div>
-                            <div id="product_description">
-                                <div class="container p-0">
-                                    <p id="price" class="me-2 mt-2 mb-0 text-end">₱
-                                        <?php echo number_format($item['price'] * $item['quantity'], 2); ?>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                    }
-                    $stmt->close();
-                } else {
-                    echo "Error: " . $conn->error;
-                }
-            }
             ?>
 
             <div id="payment_details"
@@ -338,7 +297,7 @@ include("Layout/UserHeader.php");
                     <div id="order_item" class="rounded mt-3 p-2">
                         <div id="product_details" class="w-100 rounded d-flex justify-content-between align-items-center p-2">
                             <div class="product_image d-flex justify-content-center align-items-center">
-                                <img src="product-images/<?php echo $item['image_file']; ?>" alt="" class="rounded me-2">
+                                <img src="../../product-images/<?php echo $item['image_file']; ?>" alt="" class="rounded me-2">
                                 <div class="product_variation">
                                     <h5><?php echo $item['product_name'] . ' | ' . $item['variant_options']; ?></h5>
                                     <p>Quantity: <?php echo $item['quantity']; ?></p>
@@ -391,31 +350,10 @@ include("Layout/UserHeader.php");
     <?php }
     ?>
 
+    <?php
+    include("Layout\UserFooter.php");
+    ?>
 
-    <footer>
-        <div class="footer_content flex-wrap">
-            <div class="footer_logo">
-                <img id="footer-logo" src="img\LOGO.png" alt="">
-            </div>
-            <div class="footer_details">
-                <h4>SOCIALS</h4>
-                <div class="socials">
-                    <a href="#">
-                        <p><i class='bx bxl-facebook-circle'></i>Facebook</p>
-                    </a>
-                    <a href="#">
-                        <p><i class='bx bxl-tiktok'></i>Tiktok</p>
-                    </a>
-                    <a href="#">
-                        <p><i class='bx bxl-instagram-alt'></i>Instagram</p>
-                    </a>
-                </div>
-                <div class="copyright">
-                    <p><i class='bx bx-copyright'></i>2021 Jessa Mae O. Figueroa | All Rights Reserve</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
-include ("sessionchecker.php");
-include ("connection.php");
+include("../../sessionchecker.php");
+include("../../connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["sex"]) && isset($_POST["phone"])) {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             phone='$phone' WHERE user_id='" . $_POST['user_id'] . "'");
         echo "<script>
           alert('Record Successfully modified');
-          window.location='admin_setting.php';
+          window.location='user_setting.php';
           </script>";
     }
 }

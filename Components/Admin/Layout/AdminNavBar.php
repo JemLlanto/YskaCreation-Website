@@ -13,8 +13,8 @@ while ($row = $result->fetch_assoc()) {
                     <span class="navbar-toggler-icon" style="width:15px"></span>
                 </a>
 
-                <a id="img" class="navbar-brand" href="user_landing_page.php">
-                    <img src="../../img/LOGOO.png" class="d-inline-block" style="width: 110px">
+                <a id="img" class="navbar-brand" href="admin.php">
+                    <img src="../../img/LOGOO.png" alt="YsakaLogo" class="d-inline-block" style="width: 110px">
                 </a>
             </div>
 
@@ -23,7 +23,6 @@ while ($row = $result->fetch_assoc()) {
                     data-bs-target="#offcanvasRightSmall" aria-controls="offcanvasRightSmall" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" title="Notifications">
                     <div class="orders">
-
                         <div class="order_button">
                             <i class='bx bxs-bell'></i>
                         </div>
@@ -39,27 +38,14 @@ while ($row = $result->fetch_assoc()) {
                     </div>
                     <div class="offcanvas-body">
                         <?php
-                        $notifs = mysqli_query($conn, "SELECT * FROM notification_table WHERE user_id = '" . $_SESSION["user_id"] . "' AND to_admin = '0' ORDER BY date desc");
+                        $notifs = mysqli_query($conn, "SELECT * FROM notification_table WHERE  to_admin = '1' ORDER BY date desc");
                         while ($notif = mysqli_fetch_assoc($notifs)) {
                             $date = date("F j, Y, g:i a", strtotime($notif["date"]));
                             $user_id = $notif["user_id"]; // Assuming you have an order_id field in the notification_table
                             $title = $notif["title"];
 
-                            // Determine the URL based on the title
-                            $url = "#";
-                            if ($title == "Order Placed") {
-                                $url = "user_order.php";
-                            } elseif ($title == "Order Cancelled") {
-                                $url = "user_order.php";
-                            } elseif ($title == "Order Confirm") {
-                                $url = "user_order_to_ship.php";
-                            } elseif ($title == "Order Shipped") {
-                                $url = "user_order_shipped.php";
-                            } elseif ($title == "Order Delivered") {
-                                $url = "user_order_delivered.php";
-                            }
                             ?>
-                            <a href="<?php echo $url; ?>" style="text-decoration: none;">
+                            <a href="admin_order.php" style="text-decoration: none;">
                                 <div class="notification_section">
                                     <div class="notif_container">
                                         <div class="notif_title d-flex align-content-center justify-content-between">
@@ -75,11 +61,10 @@ while ($row = $result->fetch_assoc()) {
                             </a>
                         <?php } ?>
                     </div>
+
                 </div>
 
             </div>
-
-        </div>
         </div>
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -101,7 +86,12 @@ while ($row = $result->fetch_assoc()) {
                         <ul class="dropdown-menu p-2">
                             <li>
                                 <div class="drop_items ">
-                                    <a class="ms-2 mt-3" href="user_setting.php">Account</a>
+                                    <a class="ms-2 mt-3" href="admin_setting.php">Account</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="drop_items ">
+                                    <a class="ms-2 mt-3" href="add_admin_form.php">Add Admin</a>
                                 </div>
                             </li>
                             <li>
@@ -122,16 +112,16 @@ while ($row = $result->fetch_assoc()) {
             <div class="offcanvas-body">
                 <ul class="navbar-nav nav-fill gap-2 p-0">
                     <li class="nav-item ps-3 active">
-                        <a class="nav-link text-dark text-start" href="user_landing_page.php">Home</a>
+                        <a class="nav-link text-dark text-start" href="admin.php">Home</a>
                     </li>
                     <li class="nav-item ps-3">
-                        <a class="nav-link text-dark text-start" href="user_products.php">Product</a>
+                        <a class="nav-link text-dark text-start" href="admin-products.php">Product</a>
                     </li>
                     <li class="nav-item ps-3">
-                        <a class="nav-link text-dark text-start" href="user_cart.php">Cart</a>
+                        <a class="nav-link text-dark text-start" href="admin_order.php">Orders</a>
                     </li>
                     <li class="nav-item ps-3">
-                        <a class="nav-link text-dark text-start" href="user_order.php">Orders</a>
+                        <a class="nav-link text-dark text-start" href="admin_sale_report.php">Sale Report</a>
                     </li>
                 </ul>
             </div>
@@ -139,29 +129,30 @@ while ($row = $result->fetch_assoc()) {
 
         <div
             class="container-fluid ms-0 ms-md-3 d-none d-md-flex align-items-center justify-content-space justify-content-md-between">
-            <a id="img" class="navbar-brand" href="user_landing_page.php">
-                <img src="../../img/LOGOO.png" class="d-lg-inline-block float-start d-none" style="width: 110px">
+            <a id="img" class="navbar-brand" href="admin.php">
+                <img src="../../img/LOGOO.png" alt="YsakaLogo" class="d-lg-inline-block float-start d-none"
+                    style="width: 110px">
             </a>
-
 
             <div class="container navbar-collapse d-flex d-md-none" id="navbarNav">
                 <ul class="navbar-nav nav-fill gap-2 p-0">
                     <li class="nav-item">
                         <a class="nav-link text-dark<?php if ($active == 'home')
-                            echo ' active'; ?>" href="user_landing_page.php">Home</a>
+                            echo ' active'; ?>" href="admin.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark<?php if ($active == 'product')
-                            echo ' active'; ?>" href="user_products.php">Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark<?php if ($active == 'cart')
-                            echo ' active'; ?>" href="user_cart.php">Cart</a>
+                            echo ' active'; ?>" href="admin-products.php">Product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark<?php if ($active == 'orders')
-                            echo ' active'; ?>" href="user_order.php">Orders</a>
+                            echo ' active'; ?>" href="admin_order.php">Orders</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark<?php if ($active == 'sale')
+                            echo ' active'; ?>" href="admin_sale_report.php">Sale Report</a>
+                    </li>
+
                 </ul>
             </div>
 
@@ -170,7 +161,6 @@ while ($row = $result->fetch_assoc()) {
                     aria-controls="offcanvasRightLarge" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Notifications">
                     <div class="orders">
-
                         <div class="order_button">
                             <i class='bx bxs-bell'></i>
                         </div>
@@ -186,27 +176,14 @@ while ($row = $result->fetch_assoc()) {
                     </div>
                     <div class="offcanvas-body">
                         <?php
-                        $notifs = mysqli_query($conn, "SELECT * FROM notification_table WHERE user_id = '" . $_SESSION["user_id"] . "' AND to_admin = '0' ORDER BY date desc");
+                        $notifs = mysqli_query($conn, "SELECT * FROM notification_table WHERE  to_admin = '1' ORDER BY date desc");
                         while ($notif = mysqli_fetch_assoc($notifs)) {
                             $date = date("F j, Y, g:i a", strtotime($notif["date"]));
                             $user_id = $notif["user_id"]; // Assuming you have an order_id field in the notification_table
                             $title = $notif["title"];
 
-                            // Determine the URL based on the title
-                            $url = "#";
-                            if ($title == "Order Placed") {
-                                $url = "user_order.php";
-                            } elseif ($title == "Order Cancelled") {
-                                $url = "user_order.php";
-                            } elseif ($title == "Order Confirm") {
-                                $url = "user_order_to_ship.php";
-                            } elseif ($title == "Order Shipped") {
-                                $url = "user_order_shipped.php";
-                            } elseif ($title == "Order Delivered") {
-                                $url = "user_order_delivered.php";
-                            }
                             ?>
-                            <a href="<?php echo $url; ?>" style="text-decoration: none;">
+                            <a href="admin_order.php" style="text-decoration: none;">
                                 <div class="notification_section">
                                     <div class="notif_container">
                                         <div class="notif_title d-flex align-content-center justify-content-between">
@@ -239,12 +216,17 @@ while ($row = $result->fetch_assoc()) {
                     <ul class="dropdown-menu p-2">
                         <li>
                             <div class="drop_items ">
-                                <a class="me-2" href="user_setting.php">Account</a>
+                                <a class="me-2" href="admin_setting.php">Account</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="drop_items ">
+                                <a class="w-100 me-2 text-end" href="add_admin_form.php">Add Admin</a>
                             </div>
                         </li>
                         <li>
                             <div id="log_out" class="drop_items ">
-                                <form action="../../logout.php" method="post">
+                                <form action="logout.php" method="post">
                                     <button type="submit" name="logout" class="btn p-0 py-1 text-end pe-2">Log
                                         out</button>
                                 </form>

@@ -1,6 +1,6 @@
 <?php
-    include("connection.php");
-    include("head.php");
+include("connection.php");
+include("head.php");
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +28,8 @@
                         <label for="username" class="form-label text-secondary">Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="password"
-                            required />
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="password" />
                         <label for="password" class="form-label text-secondary">Password</label>
                     </div>
 

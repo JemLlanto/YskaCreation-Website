@@ -1,6 +1,6 @@
 <?php
-include ("connection.php");
-include ("sessionchecker.php");
+include("../../sessionchecker.php");
+include("../../connection.php");
 
 if (isset($_POST['submit'])) {
 	if (!isset($_FILES['image_file']) || $_FILES['image_file']['error'] !== UPLOAD_ERR_OK) {

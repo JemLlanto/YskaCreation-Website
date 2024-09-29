@@ -1,6 +1,6 @@
 <?php
-include ("connection.php");
-include ("sessionchecker.php");
+include("../../sessionchecker.php");
+include("../../connection.php");
 
 if (isset($_POST['submit'])) {
 	if (!isset($_FILES['image_file']) || $_FILES['image_file']['error'] !== UPLOAD_ERR_OK) {
@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
             </script>";
 		} else {
 			$newImageName = uniqid() . '.' . $imageExtension;
-			$uploadPath = 'profile_picture/' . $newImageName;
+			$uploadPath = '../../profile_picture/' . $newImageName;
 
 			if (!file_exists('profile_picture')) {
 				mkdir('profile_picture', 0777, true);
