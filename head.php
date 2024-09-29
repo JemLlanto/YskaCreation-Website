@@ -33,7 +33,6 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background: rgb(233, 0, 0);
         }
 
         #navbarNav {
